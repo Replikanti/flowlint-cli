@@ -6,7 +6,7 @@ import { Command } from 'commander';
 import * as fs from 'fs';
 import * as path from 'path';
 import pc from 'picocolors';
-import { defaultConfig } from '@flowlint/core';
+import { defaultConfig } from '@replikanti/flowlint-core';
 import YAML from 'yaml';
 
 export const initCommand = new Command('init')
@@ -40,3 +40,5 @@ export const initCommand = new Command('init')
     console.log(pc.green('Created .flowlint.yml'));
     console.log(pc.gray('Edit this file to customize FlowLint behavior.'));
   });
+
+
