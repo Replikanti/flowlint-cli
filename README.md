@@ -1,4 +1,4 @@
-# FlowLint CLI
+﻿# FlowLint CLI
 
 Command-line tool for static analysis of n8n workflows.
 
@@ -81,3 +81,8 @@ rules:
 ## License
 
 MIT
+
+
+## Dependencies
+
+This tool depends on [@replikanti/flowlint-core](https://www.npmjs.com/package/@replikanti/flowlint-core) for linting logic.

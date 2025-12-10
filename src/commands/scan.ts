@@ -15,7 +15,7 @@ import {
   countFindingsBySeverity,
   type Finding,
   type FlowLintConfig
-} from '@flowlint/core';
+} from '@replikanti/flowlint-core';
 
 interface ScanOptions {
   config?: string;
@@ -153,3 +153,5 @@ function printStylishOutput(findings: Finding[]): void {
     }
   }
 }
+
+

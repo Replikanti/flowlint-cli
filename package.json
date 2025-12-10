@@ -36,11 +36,11 @@
                     "node":  "\u003e=18"
                 },
     "dependencies":  {
-                         "@flowlint/core":  "file:../flowlint-core",
                          "commander":  "^12.1.0",
-                         "glob":  "^10.3.10",
                          "picocolors":  "^1.0.0",
-                         "yaml":  "^2.8.2"
+                         "yaml":  "^2.8.2",
+                         "@replikanti/flowlint-core":  "file:../flowlint-core",
+                         "glob":  "^10.3.10"
                      },
     "devDependencies":  {
                             "@types/node":  "^22.0.0",
