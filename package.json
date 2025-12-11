@@ -34,11 +34,11 @@
         "access": "public"
     },
     "engines": {
-        "node": ">=18"
+        "node": ">=18.20.8"
     },
     "dependencies": {
         "commander": "^12.1.0",
-        "glob": "^10.3.10",
+        "glob": "^13.0.0",
         "picocolors": "^1.0.0",
         "yaml": "^2.8.2"
     },
@@ -47,7 +47,7 @@
         "@types/node": "^24.0.0",
         "tsup": "^8.0.0",
         "tsx": "^4.0.0",
-        "typescript": "^5.9.3",
-        "vitest": "^4.0.8"
+        "typescript": "^5.4.0",
+        "vitest": "^4.0.15"
     }
 }
