@@ -34,7 +34,7 @@
         "access": "public"
     },
     "engines": {
-        "node": ">=18.20.8"
+        "node": ">=24.12.0"
     },
     "dependencies": {
         "commander": "^12.1.0",
@@ -44,7 +44,7 @@
     },
     "devDependencies": {
         "@replikanti/flowlint-core": "^0.7.0",
-        "@types/node": "^24.0.0",
+        "@types/node": "^24.10.3",
         "tsup": "^8.0.0",
         "tsx": "^4.21.0",
         "typescript": "^5.4.0",
