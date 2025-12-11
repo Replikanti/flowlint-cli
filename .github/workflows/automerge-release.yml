@@ -1,0 +1,24 @@
+name: Automerge Release PR
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  automerge-release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.head_ref, 'release-please--')
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Auto-approve Release PR
+        uses: hmarr/auto-approve-action@5d0f8503502941e2233288429155c2513f464a97 # v4.0.0
+        
+      - name: Enable Auto-merge
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
