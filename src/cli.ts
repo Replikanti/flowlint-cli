@@ -1,4 +1,4 @@
-/**
+﻿/**
  * FlowLint CLI
  *
  * A command-line tool for static analysis of n8n workflow files.
@@ -14,7 +14,7 @@ const program = new Command();
 program
   .name('flowlint')
   .description('Static analysis tool for n8n workflows')
-  .version('0.6.0');
+  .version(process.env.CLI_VERSION || '0.0.0');
 
 // Register commands
 program.addCommand(scanCommand);

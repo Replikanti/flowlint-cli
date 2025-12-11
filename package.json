@@ -1,52 +1,52 @@
 {
-    "name": "flowlint",
-    "version": "0.6.1",
-    "description": "CLI for static analysis of n8n workflows",
-    "bin": {
-        "flowlint": "./dist/cli.js"
-    },
-    "main": "dist/cli.js",
-    "files": [
-        "dist/",
-        "README.md",
-        "LICENSE"
-    ],
-    "scripts": {
-        "build": "tsup",
-        "dev": "tsx src/cli.ts",
-        "test": "vitest run",
-        "prepublishOnly": "npm run build"
-    },
-    "keywords": [
-        "n8n",
-        "workflow",
-        "linter",
-        "cli",
-        "static-analysis"
-    ],
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Replikanti/flowlint-cli.git"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "engines": {
-        "node": ">=18"
-    },
-    "dependencies": {
-        "commander": "^12.1.0",
-        "glob": "^10.3.10",
-        "picocolors": "^1.0.0",
-        "yaml": "^2.8.2"
-    },
-    "devDependencies": {
-        "@replikanti/flowlint-core": "^0.6.1",
-        "@types/node": "^22.0.0",
-        "tsup": "^8.0.0",
-        "tsx": "^4.0.0",
-        "typescript": "^5.4.0",
-        "vitest": "^4.0.8"
-    }
+    "name":  "flowlint",
+    "version":  "0.6.1",
+    "description":  "CLI for static analysis of n8n workflows",
+    "bin":  {
+                "flowlint":  "./dist/cli.js"
+            },
+    "main":  "dist/cli.js",
+    "files":  [
+                  "dist/",
+                  "README.md",
+                  "LICENSE"
+              ],
+    "scripts":  {
+                    "build":  "tsup",
+                    "dev":  "tsx src/cli.ts",
+                    "test":  "vitest run",
+                    "prepublishOnly":  "npm run build"
+                },
+    "keywords":  [
+                     "n8n",
+                     "workflow",
+                     "linter",
+                     "cli",
+                     "static-analysis"
+                 ],
+    "license":  "MIT",
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/Replikanti/flowlint-cli.git"
+                   },
+    "publishConfig":  {
+                          "access":  "public"
+                      },
+    "engines":  {
+                    "node":  "\u003e=18"
+                },
+    "dependencies":  {
+                         "commander":  "^12.1.0",
+                         "glob":  "^10.3.10",
+                         "picocolors":  "^1.0.0",
+                         "yaml":  "^2.8.2"
+                     },
+    "devDependencies":  {
+                            "@replikanti/flowlint-core":  "^0.6.1",
+                            "@types/node":  "^22.0.0",
+                            "tsup":  "^8.0.0",
+                            "tsx":  "^4.0.0",
+                            "typescript":  "^5.4.0",
+                            "vitest":  "^4.0.8"
+                        }
 }
