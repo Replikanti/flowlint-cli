@@ -15,8 +15,7 @@
         "build": "tsup",
         "dev": "tsx src/cli.ts",
         "test": "vitest run",
-        "prepublishOnly": "npm run build",
-        "release": "release-it"
+        "prepublishOnly": "npm run build"
     },
     "keywords": [
         "n8n",
