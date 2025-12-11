@@ -7,15 +7,18 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { glob } from 'glob';
 import pc from 'picocolors';
-import { 
+import {
   parseN8n, 
-  runAllRules, 
-  loadConfig, 
+  runAllRules,
+  loadConfig,
   ValidationError,
   countFindingsBySeverity,
   type Finding,
   type FlowLintConfig
 } from '@replikanti/flowlint-core';
+import { formatJunit } from '../reporters/junit';
+import { formatSarif } from '../reporters/sarif';
+import { formatJson } from '../reporters/json';
 
 interface ScanOptions {
   config?: string;
@@ -27,37 +30,41 @@ export const scanCommand = new Command('scan')
   .description('Scan workflow files for issues')
   .argument('[path]', 'Directory or file to scan', '.')
   .option('--config <path>', 'Path to .flowlint.yml config file')
-  .option('--format <format>', 'Output format: stylish|json', 'stylish')
+  .option('--format <format>', 'Output format: stylish|json|junit|sarif', 'stylish')
   .option('--fail-on-error', 'Exit with code 1 if errors found', false)
   .action(async (scanPath: string, options: ScanOptions) => {
     try {
       const absolutePath = path.resolve(process.cwd(), scanPath);
-      
+      const isStylish = options.format === 'stylish';
+
       // Load configuration
-      const config: FlowLintConfig = options.config 
+      const config: FlowLintConfig = options.config
         ? loadConfig(options.config)
         : loadConfig();
 
       // Find workflow files
-      const patterns = config.files.include.map(p => 
+      const patterns = config.files.include.map(p =>
         path.join(absolutePath, p).replace(/\\/g, '/')
       );
-      
+
       const ignorePatterns = config.files.ignore.map(p =>
         path.join(absolutePath, p).replace(/\\/g, '/')
       );
 
-      const files = await glob(patterns, { 
+      const files = await glob(patterns, {
         ignore: ignorePatterns,
-        nodir: true 
+        nodir: true
       });
 
       if (files.length === 0) {
-        console.log(pc.yellow('No workflow files found.'));
+        if (isStylish) console.log(pc.yellow('No workflow files found.'));
         return;
       }
 
-      console.log(pc.blue('Scanning ' + files.length + ' file(s)...'));
+      if (isStylish) {
+        console.log(pc.blue('Scanning ' + files.length + ' file(s)...'));
+        console.log('');
+      }
 
       // Analyze files
       const allFindings: Finding[] = [];
@@ -67,7 +74,7 @@ export const scanCommand = new Command('scan')
         try {
           const content = fs.readFileSync(file, 'utf-8');
           const relativePath = path.relative(process.cwd(), file);
-          
+
           const graph = parseN8n(content);
           const findings = runAllRules(graph, {
             path: relativePath,
@@ -76,82 +83,72 @@ export const scanCommand = new Command('scan')
           });
 
           allFindings.push(...findings);
-        } catch (error) {
-          if (error instanceof ValidationError) {
-            console.log(pc.red('x ' + path.relative(process.cwd(), file) + ': Validation error'));
-            error.errors.forEach(e => {
-              console.log(pc.gray('  ' + e.path + ': ' + e.message));
+
+          if (isStylish && findings.length > 0) {
+            console.log(pc.underline(relativePath));
+            findings.forEach(f => {
+              const color = f.severity === 'must' ? pc.red : (f.severity === 'should' ? pc.yellow : pc.gray);
+              const line = f.line ? `:${f.line}` : '';
+              console.log(`  ${color(f.severity.padEnd(6))} ${f.rule} ${f.message}${pc.gray(line)}`);
             });
-          } else {
-            console.log(pc.red('x ' + path.relative(process.cwd(), file) + ': ' + (error instanceof Error ? error.message : String(error))));
+            console.log('');
           }
+          
+          if (findings.some(f => f.severity === 'must')) {
+              errorCount++;
+          }
+
+        } catch (error) {
+          allFindings.push({
+             rule: 'validation-error',
+             message: error instanceof Error ? error.message : String(error),
+             severity: 'must',
+             path: path.relative(process.cwd(), file),
+             line: 0
+          });
           errorCount++;
+          
+          if (isStylish) {
+            if (error instanceof ValidationError) {
+                console.log(pc.red('x ' + path.relative(process.cwd(), file) + ': Validation error'));
+                error.errors.forEach(e => {
+                console.log(pc.gray('  ' + e.path + ': ' + e.message));
+                });
+            } else {
+                console.log(pc.red('x ' + path.relative(process.cwd(), file) + ': ' + (error instanceof Error ? error.message : String(error))));
+            }
+          }
         }
       }
 
       // Output results
-      if (options.format === 'json') {
-        console.log(JSON.stringify({
-          findings: allFindings,
-          summary: countFindingsBySeverity(allFindings),
-          filesScanned: files.length,
-          errors: errorCount,
-        }, null, 2));
-      } else {
-        // Stylish format
-        printStylishOutput(allFindings);
+      switch (options.format) {
+        case 'json':
+          console.log(formatJson(allFindings, { files: files.length, errors: errorCount }));
+          break;
+        case 'junit':
+          console.log(formatJunit(allFindings));
+          break;
+        case 'sarif':
+          console.log(formatSarif(allFindings));
+          break;
+        case 'stylish':
+        default:
+          const summary = countFindingsBySeverity(allFindings);
+          console.log('Summary:');
+          console.log(`  Files scanned: ${files.length}`);
+          console.log(`  Errors (must): ${pc.red(summary.must)}`);
+          console.log(`  Warnings (should): ${pc.yellow(summary.should)}`);
+          console.log(`  Notes (nit): ${pc.gray(summary.nit)}`);
+          break;
       }
 
-      // Summary
-      const summary = countFindingsBySeverity(allFindings);
-      console.log('');
-      console.log(pc.bold('Summary:'));
-      console.log('  Files scanned: ' + files.length);
-      console.log('  ' + pc.red('Errors (must): ' + summary.must));
-      console.log('  ' + pc.yellow('Warnings (should): ' + summary.should));
-      console.log('  ' + pc.blue('Notes (nit): ' + summary.nit));
-
-      // Exit code
-      if (options.failOnError && summary.must > 0) {
+      if (options.failOnError && errorCount > 0) {
         process.exit(1);
       }
+
     } catch (error) {
-      console.error(pc.red('Error:'), error instanceof Error ? error.message : String(error));
-      process.exit(2);
+      console.error(pc.red('Error: ' + (error instanceof Error ? error.message : String(error))));
+      process.exit(1);
     }
   });
-
-function printStylishOutput(findings: Finding[]): void {
-  if (findings.length === 0) {
-    console.log(pc.green('No issues found!'));
-    return;
-  }
-
-  // Group by file
-  const byFile = new Map<string, Finding[]>();
-  for (const finding of findings) {
-    const existing = byFile.get(finding.path) || [];
-    existing.push(finding);
-    byFile.set(finding.path, existing);
-  }
-
-  for (const [file, fileFindings] of byFile) {
-    console.log('');
-    console.log(pc.underline(file));
-    
-    for (const finding of fileFindings) {
-      const severityColor = finding.severity === 'must' 
-        ? pc.red 
-        : finding.severity === 'should' 
-          ? pc.yellow 
-          : pc.blue;
-      
-      const line = finding.line ? ':' + finding.line : '';
-      console.log(
-        '  ' + severityColor(finding.severity.padEnd(6)) + ' ' + pc.gray(finding.rule) + ' ' + finding.message + pc.gray(line)
-      );
-    }
-  }
-}
-
-
