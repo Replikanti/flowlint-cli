@@ -1,9 +1,9 @@
-﻿import type { Finding } from '@replikanti/flowlint-core';
+import type { Finding } from '@replikanti/flowlint-core';
 import * as path from 'path';
 
 export function formatJunit(findings: Finding[]): string {
   const byFile = findings.reduce((acc, finding) => {
-    const file = finding.path || 'unknown';
+    const file = finding.location?.file || 'unknown';
     if (!acc[file]) acc[file] = [];
     acc[file].push(finding);
     return acc;
@@ -14,18 +14,22 @@ export function formatJunit(findings: Finding[]): string {
   for (const [file, fileFindings] of Object.entries(byFile)) {
     const filename = path.basename(file);
     const failures = fileFindings.length;
-    
+
     xml += `  <testsuite name="${filename}" tests="${failures}" failures="${failures}" errors="0" skipped="0" timestamp="${new Date().toISOString()}" time="0" hostname="flowlint">\n`;
-    
+
     for (const finding of fileFindings) {
-      xml += `    <testcase classname="${file}" name="${finding.rule}" time="0">\n`;
-      xml += `      <failure message="${escapeXml(finding.message)}" type="${finding.severity}">Line ${finding.line || 0}: ${escapeXml(finding.raw_details || '')}</failure>\n`;
+      const line = finding.location?.range?.start?.line || 0;
+      const rule = finding.ruleId || 'unknown-rule';
+      const msg = finding.message || '';
+      
+      xml += `    <testcase classname="${file}" name="${rule}" time="0">\n`;
+      xml += `      <failure message="${escapeXml(msg)}" type="${finding.severity}">Line ${line}: ${escapeXml(msg)}</failure>\n`;
       xml += `    </testcase>\n`;
     }
-    
+
     xml += `  </testsuite>\n`;
   }
-  
+
   xml += '</testsuites>';
   return xml;
 }
