@@ -10,7 +10,7 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v4 # v4
+      - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4
         id: release
         with:
           release-type: node
@@ -18,7 +18,7 @@ jobs:
       # NPM Publish step
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         if: ${{ steps.release.outputs.release_created }}
-      - uses: actions/setup-node@v4 # v4.0.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '24.12.0'
           registry-url: 'https://registry.npmjs.org'
