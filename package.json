@@ -42,7 +42,7 @@
         "yaml": "^2.8.2"
     },
     "devDependencies": {
-        "@replikanti/flowlint-core": "0.7.0",
+        "@replikanti/flowlint-core": "0.8.0",
         "@types/node": "24.10.3",
         "tsup": "8.5.1",
         "tsx": "4.21.0",
