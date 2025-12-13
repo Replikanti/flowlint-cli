@@ -11,6 +11,11 @@
     {
        "matchPackageNames": ["/^@replikanti//"],
        "automerge": true
+    },
+    {
+      "matchPackageNames": ["@replikanti/flowlint-core"],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "deps"
     }
   ]
 }
