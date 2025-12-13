@@ -1,0 +1,61 @@
+name: AI Release Gate
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+jobs:
+  filter-and-merge:
+    if: startsWith(github.head_ref, 'release-please--')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install openai tsx
+
+      - name: Run AI Filter
+        id: ai
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          # Capture output, handling potential multiline strings
+          OUTPUT=$(npx tsx scripts/ai-release-filter.ts)
+          
+          echo "RAW OUTPUT LENGTH: ${#OUTPUT}"
+          
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "result<<$EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+
+      - name: Process Result
+        env:
+          GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }} # Use PAT for actions on protected branches
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RESULT: ${{ steps.ai.outputs.result }}
+        run: |
+          if [[ "$RESULT" == *"NO_RELEASE"* ]]; then
+            echo "No business value detected. Closing PR."
+            gh pr close $PR_NUMBER --comment "AI Release Gate: No significant business value detected in this release candidate. Closing."
+          else
+            echo "Business value detected. Updating PR description and Merging."
+            
+            # Update Description
+            gh pr edit $PR_NUMBER --body "$RESULT"
+            
+            # Approve
+            gh pr review $PR_NUMBER --approve
+            
+            # Enable Auto-Merge
+            gh pr merge $PR_NUMBER --auto --merge
+          fi
