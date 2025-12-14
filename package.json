@@ -42,7 +42,7 @@
         "yaml": "^2.8.2"
     },
     "devDependencies": {
-        "@octokit/rest": "^22.0.1",
+        "@octokit/rest": "22.0.1",
         "@replikanti/flowlint-core": "0.8.0",
         "@types/node": "24.10.3",
         "openai": "6.10.0",
