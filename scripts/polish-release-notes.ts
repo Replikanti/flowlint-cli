@@ -21,7 +21,7 @@ async function main() {
     const release = await octokit.repos.getReleaseByTag({
       owner: OWNER,
       repo: REPO,
-      tag: TAG_NAME,
+      tag: TAG_NAME as string,
     });
 
     const originalNotes = release.data.body || '';
