@@ -36,10 +36,18 @@ ${originalNotes}
 """
 
 Instructions:
-1.  **Filter Noise:** Remove lines about internal CI chores, test updates, refactoring, or dependency bumps (unless it's a major/critical update like flowlint-core). Keep user-facing features and bug fixes.
-2.  **Rewrite & Group:** Group items into clear sections: "🚀 New Features", "🐛 Bug Fixes", "⚡ Improvements". Use emojis.
+1.  **Filter Noise:** Remove lines about internal CI chores, test updates, refactoring, or minor dependency bumps. Keep user-facing features and bug fixes.
+
+   **CRITICAL: @replikanti/flowlint-core upgrades must ALWAYS be mentioned:**
+   - If you see any mention of "@replikanti/flowlint-core" being updated (any version change), you MUST include it in the release notes
+   - Extract the version numbers (e.g., "0.7.1 → 0.8.0" or just "→ 0.8.0" if old version unknown)
+   - Add it under a "📦 Core Library" or "⚡ Improvements" section
+   - Format: "Updated to @replikanti/flowlint-core v0.8.0" or "Core library upgraded to v0.8.0"
+   - Even if no other details are available about what changed in core, still mention the upgrade
+
+2.  **Rewrite & Group:** Group items into clear sections: "🚀 New Features", "🐛 Bug Fixes", "⚡ Improvements", "📦 Dependencies". Use emojis. If flowlint-core was upgraded, it goes in "⚡ Improvements" or its own "📦 Core Library" section.
 3.  **Tone:** Professional, exciting, concise.
-4.  **Summary:** Add a one-sentence summary at the top (e.g., "This release brings performance improvements and fixes 3 bugs.").
+4.  **Summary:** Add a one-sentence summary at the top (e.g., "This release brings performance improvements and fixes 3 bugs."). If flowlint-core was upgraded, mention it in the summary (e.g., "This release upgrades to core v0.8.0 and fixes 2 bugs.").
 5.  **Output:** Return ONLY the Markdown content of the new release notes.
 `;
 
