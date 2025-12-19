@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.7.3](https://github.com/Replikanti/flowlint-cli/compare/v0.7.2...v0.7.3) (2025-12-19)
+
+
+### Bug Fixes
+
+* add release-please token to trigger CI ([0f2fa6b](https://github.com/Replikanti/flowlint-cli/commit/0f2fa6b75dfcb0fb36f7b5f11800b4ffc9ba3e0d))
+* enable manual CI trigger and fix release PR execution ([a727e5e](https://github.com/Replikanti/flowlint-cli/commit/a727e5ed551199a13120427c6f69262a9ce5e160))
+* enable manual CI trigger and fix release-please token to trigger CI ([112825e](https://github.com/Replikanti/flowlint-cli/commit/112825e78151cb914ba29ff41a2f09ebacebd68c))
+
 ## [0.7.2](https://github.com/Replikanti/flowlint-cli/compare/v0.7.1...v0.7.2) (2025-12-19)
 
 
