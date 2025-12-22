@@ -33,7 +33,7 @@ jobs:
       - name: Approve and Merge
         if: ${{ steps.pr.outputs.pr_url }}
         env:
-          GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ steps.pr.outputs.pr_url }}
         run: |
           echo "Processing PR: $PR_URL"
