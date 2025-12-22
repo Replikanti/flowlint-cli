@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.8](https://github.com/Replikanti/flowlint-cli/compare/v0.7.7...v0.7.8) (2025-12-22)
+
+
+### Bug Fixes
+
+* **ci:** move permissions to job level in release workflow ([9a12041](https://github.com/Replikanti/flowlint-cli/commit/9a12041f22eab11eb227edfc3fa7bf7c179adb59))
+
 ## [0.7.7](https://github.com/Replikanti/flowlint-cli/compare/v0.7.6...v0.7.7) (2025-12-22)
 
 

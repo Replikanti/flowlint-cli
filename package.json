@@ -1,6 +1,6 @@
 {
     "name": "flowlint",
-    "version": "0.7.7",
+    "version": "0.7.8",
     "description": "CLI for static analysis of n8n workflows",
     "bin": {
         "flowlint": "./dist/cli.js"
