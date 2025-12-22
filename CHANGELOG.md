@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.7](https://github.com/Replikanti/flowlint-cli/compare/v0.7.6...v0.7.7) (2025-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @replikanti/flowlint-core to v0.9.1 ([#90](https://github.com/Replikanti/flowlint-cli/issues/90)) ([3c8332d](https://github.com/Replikanti/flowlint-cli/commit/3c8332db011b08706abaa7aa2f5c3bc72998b0b2))
+
 ## [0.7.6](https://github.com/Replikanti/flowlint-cli/compare/v0.7.5...v0.7.6) (2025-12-22)
 
 
