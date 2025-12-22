@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.5](https://github.com/Replikanti/flowlint-cli/compare/v0.7.4...v0.7.5) (2025-12-22)
+
+
+### Bug Fixes
+
+* **ci:** use PAT for merging to trigger release workflow ([417fbe3](https://github.com/Replikanti/flowlint-cli/commit/417fbe349094900b7b62a90d6d018590a1c910de))
+* **ci:** use PAT for merging to trigger release workflow ([d95d15e](https://github.com/Replikanti/flowlint-cli/commit/d95d15e9353a31ac76f59062674811dca028dd21))
+
 ## [0.7.4](https://github.com/Replikanti/flowlint-cli/compare/v0.7.3...v0.7.4) (2025-12-22)
 
 
