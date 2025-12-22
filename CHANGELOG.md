@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.7.4](https://github.com/Replikanti/flowlint-cli/compare/v0.7.3...v0.7.4) (2025-12-22)
+
+
+### Bug Fixes
+
+* **ci:** satisfy sonarqube checks ([380e2cb](https://github.com/Replikanti/flowlint-cli/commit/380e2cbcaeea0fd52eb0236b1db75db8e816a3bc))
+* **ci:** satisfy sonarqube checks ([f988c1c](https://github.com/Replikanti/flowlint-cli/commit/f988c1ce297706cb5a10612da58cb12a8888da7e))
+* **ci:** use GITHUB_TOKEN for release auto-approval ([6e68aef](https://github.com/Replikanti/flowlint-cli/commit/6e68aef7a747f8b92979674751203e3f7d78996c))
+* **ci:** use GITHUB_TOKEN for release auto-approval ([2ef6401](https://github.com/Replikanti/flowlint-cli/commit/2ef640138ce2a0430ab50c09d25ebf298a5b86ec))
+
 ## [0.7.3](https://github.com/Replikanti/flowlint-cli/compare/v0.7.2...v0.7.3) (2025-12-19)
 
 
