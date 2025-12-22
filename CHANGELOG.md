@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.6](https://github.com/Replikanti/flowlint-cli/compare/v0.7.5...v0.7.6) (2025-12-22)
+
+
+### Bug Fixes
+
+* **scripts:** revert top-level await to fix CI execution ([9cdb217](https://github.com/Replikanti/flowlint-cli/commit/9cdb2176e0e197ac4b6a48e940f256a235406253))
+
 ## [0.7.5](https://github.com/Replikanti/flowlint-cli/compare/v0.7.4...v0.7.5) (2025-12-22)
 
 
