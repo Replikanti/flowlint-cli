@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.0](https://github.com/Replikanti/flowlint-cli/compare/v0.7.8...v0.8.0) (2025-12-24)
+
+
+### Features
+
+* **cli:** implement single file scanning (FLT-52) ([df4c211](https://github.com/Replikanti/flowlint-cli/commit/df4c211f90c0e4ae07214b1a6681796934a8e8b2))
+* **cli:** implement single file scanning (FLT-52) ([8db0b85](https://github.com/Replikanti/flowlint-cli/commit/8db0b8573d9ecd1e1c5f2c2187405072150fef90))
+
 ## [0.7.8](https://github.com/Replikanti/flowlint-cli/compare/v0.7.7...v0.7.8) (2025-12-22)
 
 
