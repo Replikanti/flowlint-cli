@@ -20,10 +20,15 @@ program
 program.addCommand(scanCommand);
 program.addCommand(initCommand);
 
-// Parse and execute
-program.parse(process.argv);
+// Export for testing
+export { program };
 
-// Show help if no command provided
-if (!process.argv.slice(2).length) {
-  program.outputHelp();
+// Parse and execute if this is the entry point
+if (import.meta.url === `file://${process.argv[1]}`) {
+  program.parse(process.argv);
+
+  // Show help if no command provided
+  if (!process.argv.slice(2).length) {
+    program.outputHelp();
+  }
 }
