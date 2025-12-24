@@ -1,5 +1,7 @@
 ﻿# FlowLint CLI
 
+![Coverage](https://img.shields.io/badge/coverage-80%25-green)
+
 Command-line tool for static analysis of n8n workflows.
 
 ## Installation
@@ -42,6 +44,14 @@ flowlint init
 ```
 
 Creates a `.flowlint.yml` file in the current directory.
+
+## Testing
+
+Run tests with coverage reporting:
+
+```bash
+npm run test:coverage
+```
 
 ## Configuration
 
