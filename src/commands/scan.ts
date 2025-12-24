@@ -6,6 +6,7 @@ import { Command } from 'commander';
 import * as fs from 'fs';
 import * as path from 'path';
 import { glob } from 'glob';
+import { minimatch } from 'minimatch';
 import pc from 'picocolors';
 import {
   parseN8n, 
@@ -27,8 +28,8 @@ interface ScanOptions {
 }
 
 export const scanCommand = new Command('scan')
-  .description('Scan workflow files for issues')
-  .argument('[path]', 'Directory or file to scan', '.')
+  .description('Scan workflow files (directory or single file) for issues')
+  .argument('[path]', 'Directory or workflow file to scan', '.')
   .option('--config <path>', 'Path to .flowlint.yml config file')
   .option('--format <format>', 'Output format: stylish|json|junit|sarif', 'stylish')
   .option('--fail-on-error', 'Exit with code 1 if errors found', false)
@@ -37,24 +38,59 @@ export const scanCommand = new Command('scan')
       const absolutePath = path.resolve(process.cwd(), scanPath);
       const isStylish = options.format === 'stylish';
 
+      let stats;
+      try {
+        stats = fs.statSync(absolutePath);
+      } catch (error) {
+        if ((error as any).code === 'ENOENT') {
+          console.error(pc.red(`Error: Path not found: ${scanPath}`));
+          process.exit(1);
+        }
+        throw error;
+      }
+
+      const isFile = stats.isFile();
+      const isDirectory = stats.isDirectory();
+
+      if (!isFile && !isDirectory) {
+        console.error(pc.red(`Error: Path is neither a file nor a directory: ${scanPath}`));
+        process.exit(1);
+      }
+
       // Load configuration
       const config: FlowLintConfig = options.config
         ? loadConfig(options.config)
         : loadConfig();
 
-      // Find workflow files
-      const patterns = config.files.include.map(p =>
-        path.join(absolutePath, p).replace(/\\/g, '/')
-      );
+      let files: string[] = [];
 
-      const ignorePatterns = config.files.ignore.map(p =>
-        path.join(absolutePath, p).replace(/\\/g, '/')
-      );
+      if (isDirectory) {
+        // Find workflow files
+        const patterns = config.files.include.map(p =>
+          path.join(absolutePath, p).replace(/\\/g, '/')
+        );
 
-      const files = await glob(patterns, {
-        ignore: ignorePatterns,
-        nodir: true
-      });
+        const ignorePatterns = config.files.ignore.map(p =>
+          path.join(absolutePath, p).replace(/\\/g, '/')
+        );
+
+        files = await glob(patterns, {
+          ignore: ignorePatterns,
+          nodir: true
+        });
+      } else if (isFile) {
+        files = [absolutePath];
+        
+        const relativeScanPath = path.relative(process.cwd(), absolutePath).replace(/\\/g, '/');
+        const isIncluded = config.files.include.some(p => minimatch(relativeScanPath, p));
+        const isIgnored = config.files.ignore.some(p => minimatch(relativeScanPath, p));
+
+        if (!isIncluded || isIgnored) {
+          if (isStylish) {
+            console.log(pc.yellow(`Warning: File "${relativeScanPath}" does not match configured patterns or is ignored.`));
+          }
+        }
+      }
 
       if (files.length === 0) {
         if (isStylish) console.log(pc.yellow('No workflow files found.'));

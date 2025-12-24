@@ -25,6 +25,9 @@ flowlint scan
 # Scan specific directory
 flowlint scan ./workflows
 
+# Scan single file
+flowlint scan ./workflows/payment-flow.n8n.json
+
 # Output as JSON
 flowlint scan --format json
 
