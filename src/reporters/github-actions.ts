@@ -7,7 +7,10 @@ export function formatGithubActions(findings: Finding[]): string {
     const line = f.line ? `line=${f.line},` : '';
     // Escape message for GitHub Actions
     // data.replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A')
-    const message = f.message.replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+    const message = f.message
+      .replaceAll('%', '%25')
+      .replaceAll('\r', '%0D')
+      .replaceAll('\n', '%0A');
     
     return `::${level} ${file}${line}::${message}`;
   }).join('\n');

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import path from 'path';
-import fs from 'fs';
-import os from 'os';
+import path from 'node:path';
+import fs from 'node:fs';
+import os from 'node:os';
 import { runCli } from './helpers/run-cli';
 
 describe('CLI Error Handling', () => {
@@ -29,7 +29,7 @@ describe('CLI Error Handling', () => {
         expect(result.exitCode).toBe(0); // Scanning continues, findings reported
         
         // Strip ANSI colors for reliable matching
-        const cleanStdout = result.stdout.replace(/\u001b\[[0-9;]*m/g, '');
+        const cleanStdout = result.stdout.replaceAll(/\x1b\[[0-9;]*m/g, '');
         
         expect(cleanStdout).toMatch(/Validation error|broken\.n8n\.json/);
         expect(cleanStdout).toContain('Errors (must): 1');
