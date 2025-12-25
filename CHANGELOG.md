@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.1](https://github.com/Replikanti/flowlint-cli/compare/v0.8.0...v0.8.1) (2025-12-25)
+
+
+### Bug Fixes
+
+* **cli:** address SonarQube findings ([f924dfb](https://github.com/Replikanti/flowlint-cli/commit/f924dfbcd2e27ae40ce8462f7b8d4b0658bc22a0))
+* **cli:** resolve SonarQube regex control character issue ([7720755](https://github.com/Replikanti/flowlint-cli/commit/772075539e7aaea4cc4f4cd39483235432a33fcf))
+
 ## [0.8.0](https://github.com/Replikanti/flowlint-cli/compare/v0.7.8...v0.8.0) (2025-12-24)
 
 
