@@ -29,7 +29,9 @@ describe('CLI Error Handling', () => {
         expect(result.exitCode).toBe(0); // Scanning continues, findings reported
         
         // Strip ANSI colors for reliable matching
-        const cleanStdout = result.stdout.replaceAll(/\x1b\[[0-9;]*m/g, '');
+        // eslint-disable-next-line no-control-regex
+        const ansiRegex = new RegExp('\\x1b\\[[0-9;]*m', 'g');
+        const cleanStdout = result.stdout.replaceAll(ansiRegex, '');
         
         expect(cleanStdout).toMatch(/Validation error|broken\.n8n\.json/);
         expect(cleanStdout).toContain('Errors (must): 1');
