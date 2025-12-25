@@ -47,7 +47,7 @@
         "@octokit/rest": "22.0.1",
         "@replikanti/flowlint-core": "0.9.1",
         "@types/node": "24.10.4",
-        "@vitest/coverage-v8": "^4.0.16",
+        "@vitest/coverage-v8": "4.0.16",
         "openai": "6.15.0",
         "tsup": "8.5.1",
         "tsx": "4.21.0",
