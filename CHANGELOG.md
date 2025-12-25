@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.8.0](https://github.com/Replikanti/flowlint-cli/compare/v0.7.8...v0.8.0) (2025-12-24)
+
+
+### Features
+
+* **cli:** implement single file scanning (FLT-52) ([df4c211](https://github.com/Replikanti/flowlint-cli/commit/df4c211f90c0e4ae07214b1a6681796934a8e8b2))
+* **cli:** implement single file scanning (FLT-52) ([8db0b85](https://github.com/Replikanti/flowlint-cli/commit/8db0b8573d9ecd1e1c5f2c2187405072150fef90))
+
+## [0.7.8](https://github.com/Replikanti/flowlint-cli/compare/v0.7.7...v0.7.8) (2025-12-22)
+
+
+### Bug Fixes
+
+* **ci:** move permissions to job level in release workflow ([9a12041](https://github.com/Replikanti/flowlint-cli/commit/9a12041f22eab11eb227edfc3fa7bf7c179adb59))
+
+## [0.7.7](https://github.com/Replikanti/flowlint-cli/compare/v0.7.6...v0.7.7) (2025-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @replikanti/flowlint-core to v0.9.1 ([#90](https://github.com/Replikanti/flowlint-cli/issues/90)) ([3c8332d](https://github.com/Replikanti/flowlint-cli/commit/3c8332db011b08706abaa7aa2f5c3bc72998b0b2))
+
+## [0.7.6](https://github.com/Replikanti/flowlint-cli/compare/v0.7.5...v0.7.6) (2025-12-22)
+
+
+### Bug Fixes
+
+* **scripts:** revert top-level await to fix CI execution ([9cdb217](https://github.com/Replikanti/flowlint-cli/commit/9cdb2176e0e197ac4b6a48e940f256a235406253))
+
 ## [0.7.5](https://github.com/Replikanti/flowlint-cli/compare/v0.7.4...v0.7.5) (2025-12-22)
 
 
