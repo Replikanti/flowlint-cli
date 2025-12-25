@@ -3,7 +3,7 @@ import * as path from 'path';
 
 export function formatJunit(findings: Finding[]): string {
   const byFile = findings.reduce((acc, finding) => {
-    const file = finding.location?.file || 'unknown';
+    const file = finding.path || 'unknown';
     if (!acc[file]) acc[file] = [];
     acc[file].push(finding);
     return acc;
@@ -18,8 +18,8 @@ export function formatJunit(findings: Finding[]): string {
     xml += `  <testsuite name="${filename}" tests="${failures}" failures="${failures}" errors="0" skipped="0" timestamp="${new Date().toISOString()}" time="0" hostname="flowlint">\n`;
 
     for (const finding of fileFindings) {
-      const line = finding.location?.range?.start?.line || 0;
-      const rule = finding.ruleId || 'unknown-rule';
+      const line = finding.line || 0;
+      const rule = finding.rule || 'unknown-rule';
       const msg = finding.message || '';
       
       xml += `    <testcase classname="${file}" name="${rule}" time="0">\n`;

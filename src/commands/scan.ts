@@ -20,6 +20,7 @@ import {
 import { formatJunit } from '../reporters/junit';
 import { formatSarif } from '../reporters/sarif';
 import { formatJson } from '../reporters/json';
+import { formatGithubActions } from '../reporters/github-actions';
 
 interface ScanOptions {
   config?: string;
@@ -31,7 +32,7 @@ export const scanCommand = new Command('scan')
   .description('Scan workflow files (directory or single file) for issues')
   .argument('[path]', 'Directory or workflow file to scan', '.')
   .option('--config <path>', 'Path to .flowlint.yml config file')
-  .option('--format <format>', 'Output format: stylish|json|junit|sarif', 'stylish')
+  .option('--format <format>', 'Output format: stylish|json|junit|sarif|github-actions', 'stylish')
   .option('--fail-on-error', 'Exit with code 1 if errors found', false)
   .action(async (scanPath: string, options: ScanOptions) => {
     try {
@@ -167,6 +168,9 @@ export const scanCommand = new Command('scan')
           break;
         case 'sarif':
           console.log(formatSarif(allFindings));
+          break;
+        case 'github-actions':
+          console.log(formatGithubActions(allFindings));
           break;
         case 'stylish':
         default:
