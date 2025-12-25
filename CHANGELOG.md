@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.8.2](https://github.com/Replikanti/flowlint-cli/compare/v0.8.1...v0.8.2) (2025-12-25)
+
+
+### Bug Fixes
+
+* **ci:** secure renovate approval workflow ([7502bee](https://github.com/Replikanti/flowlint-cli/commit/7502beedcb480cfaca0703cb0918ef0e2f454573))
+* **ci:** strictly use pull_request event for security (SQ fix) ([2d809b5](https://github.com/Replikanti/flowlint-cli/commit/2d809b5f859daf0636124dc2630fdd695580a700))
+* **ci:** strictly use pull_request event for security (SQ fix) ([f799123](https://github.com/Replikanti/flowlint-cli/commit/f799123b4c8fdcd8200ce82fe74aa67b280720f9))
+* **ci:** use pull_request event for renovate approval ([0fe2404](https://github.com/Replikanti/flowlint-cli/commit/0fe24047706a16b8fefdd80a5f2a40c1d5e3ee07))
+
 ## [0.8.1](https://github.com/Replikanti/flowlint-cli/compare/v0.8.0...v0.8.1) (2025-12-25)
 
 
