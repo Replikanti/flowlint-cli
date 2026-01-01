@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.8.5](https://github.com/Replikanti/flowlint-cli/compare/v0.8.4...v0.8.5) (2026-01-01)
+
+
+### Bug Fixes
+
+* **scripts:** use ESM-compatible __dirname ([ba8fcc9](https://github.com/Replikanti/flowlint-cli/commit/ba8fcc93dfe84c561ba6e62df3a356df9eb3ff3a))
+* **scripts:** use node: prefix for built-in imports ([21ff2a4](https://github.com/Replikanti/flowlint-cli/commit/21ff2a47487a91b81fe5b854e292fb018f5f24fa))
+
+## [0.8.4](https://github.com/Replikanti/flowlint-cli/compare/v0.8.3...v0.8.4) (2025-12-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @replikanti/flowlint-core to v0.9.5 ([#104](https://github.com/Replikanti/flowlint-cli/issues/104)) ([0537f94](https://github.com/Replikanti/flowlint-cli/commit/0537f9472e9e22193ed4ba1dcb3181c99864c906))
+
+## [0.8.3](https://github.com/Replikanti/flowlint-cli/compare/v0.8.2...v0.8.3) (2025-12-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @replikanti/flowlint-core to v0.9.3 ([#102](https://github.com/Replikanti/flowlint-cli/issues/102)) ([3945bbe](https://github.com/Replikanti/flowlint-cli/commit/3945bbe8124ff7d2ee1967f7674d6a3849e9ea80))
+
+## [0.8.2](https://github.com/Replikanti/flowlint-cli/compare/v0.8.1...v0.8.2) (2025-12-25)
+
+
+### Bug Fixes
+
+* **ci:** secure renovate approval workflow ([7502bee](https://github.com/Replikanti/flowlint-cli/commit/7502beedcb480cfaca0703cb0918ef0e2f454573))
+* **ci:** strictly use pull_request event for security (SQ fix) ([2d809b5](https://github.com/Replikanti/flowlint-cli/commit/2d809b5f859daf0636124dc2630fdd695580a700))
+* **ci:** strictly use pull_request event for security (SQ fix) ([f799123](https://github.com/Replikanti/flowlint-cli/commit/f799123b4c8fdcd8200ce82fe74aa67b280720f9))
+* **ci:** use pull_request event for renovate approval ([0fe2404](https://github.com/Replikanti/flowlint-cli/commit/0fe24047706a16b8fefdd80a5f2a40c1d5e3ee07))
+
 ## [0.8.1](https://github.com/Replikanti/flowlint-cli/compare/v0.8.0...v0.8.1) (2025-12-25)
 
 
