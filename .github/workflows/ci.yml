@@ -25,7 +25,9 @@ jobs:
       - name: Update Coverage Badge
         if: github.ref == 'refs/heads/main'
         run: node scripts/update-badge.js
+
       - name: Create Pull Request for Badge
+        id: cpr
         if: github.ref == 'refs/heads/main'
         uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8
         with:
@@ -36,4 +38,12 @@ jobs:
           branch: "docs/update-coverage-badge"
           base: "main"
           delete-branch: true
+
+      - name: Trigger CI on Badge Branch
+        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+        run: |
+          gh workflow run ci.yml --ref docs/update-coverage-badge
+        env:
+          GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }}
+
       - run: npm run build
