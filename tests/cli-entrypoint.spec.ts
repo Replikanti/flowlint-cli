@@ -17,6 +17,7 @@ describe('CLI Entry Point', () => {
         const result = await runCli(['--version']);
 
         expect(result.exitCode).toBe(0);
-        expect(result.stdout).toMatch(/\d+\.\d+\.\d+/);
+        // Match semantic version format (no backtracking risk with possessive quantifiers)
+        expect(result.stdout).toMatch(/\d{1,5}\.\d{1,5}\.\d{1,5}/);
     });
 });
