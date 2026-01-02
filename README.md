@@ -1,6 +1,6 @@
 ﻿# FlowLint CLI
 
-![Coverage](https://img.shields.io/badge/coverage-80.39%25-green)
+![Coverage](https://img.shields.io/badge/coverage-93.75%25-brightgreen)
 
 Command-line tool for static analysis of n8n workflows.
 
