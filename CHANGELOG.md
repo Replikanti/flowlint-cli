@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.1](https://github.com/Replikanti/flowlint-cli/compare/v0.9.0...v0.9.1) (2026-01-02)
+
+
+### Bug Fixes
+
+* **ci:** use --admin without --auto flag ([d1da21f](https://github.com/Replikanti/flowlint-cli/commit/d1da21f05297b9696b16cc9ace27498ad2089690))
+* **ci:** use --admin without --auto flag ([25c527b](https://github.com/Replikanti/flowlint-cli/commit/25c527be49c63b6710cdeb228b67de9f4d4192e5))
+
 ## [0.9.0](https://github.com/Replikanti/flowlint-cli/compare/v0.8.5...v0.9.0) (2026-01-02)
 
 
