@@ -30,7 +30,7 @@ describe('CLI Error Handling', () => {
         
         // Strip ANSI colors for reliable matching
         // eslint-disable-next-line no-control-regex
-        const ansiRegex = new RegExp('\\x1b\\[[0-9;]*m', 'g');
+        const ansiRegex = /\x1b\[[0-9;]*m/g;
         const cleanStdout = result.stdout.replaceAll(ansiRegex, '');
         
         expect(cleanStdout).toMatch(/Validation error|broken\.n8n\.json/);
@@ -43,5 +43,21 @@ describe('CLI Error Handling', () => {
 
         const result = await runCli(['scan', filePath, '--fail-on-error'], tempDir);
         expect(result.exitCode).toBe(1);
+    });
+
+    it('should handle generic JSON parsing errors', async () => {
+        const filePath = path.join(tempDir, 'malformed.n8n.json');
+        fs.writeFileSync(filePath, 'completely invalid json {][}');
+
+        const result = await runCli(['scan', filePath], tempDir);
+        expect(result.exitCode).toBe(0); // Continues with findings
+
+        // Strip ANSI colors for reliable matching
+        // eslint-disable-next-line no-control-regex
+        const ansiRegex = /\x1b\[[0-9;]*m/g;
+        const cleanStdout = result.stdout.replaceAll(ansiRegex, '');
+
+        expect(cleanStdout).toContain('malformed.n8n.json');
+        expect(cleanStdout).toMatch(/Errors \(must\): [1-9]/);
     });
 });

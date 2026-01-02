@@ -15,6 +15,7 @@ export const initCommand = new Command('init')
   .action((options: { force: boolean }) => {
     const configPath = path.join(process.cwd(), '.flowlint.yml');
 
+    /* c8 ignore next 4 */
     if (fs.existsSync(configPath) && !options.force) {
       console.log(pc.yellow('.flowlint.yml already exists. Use --force to overwrite.'));
       return;

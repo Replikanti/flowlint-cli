@@ -51,4 +51,20 @@ describe('Single File Scanning', () => {
         expect(result.exitCode).toBe(1);
         expect(result.stdout).toContain('Errors (must):');
     });
+
+    it('should scan single file with junit format', async () => {
+        const file = path.join(fixturesDir, 'dirty', 'invalid.json');
+        const result = await runCli(['scan', file, '--format', 'junit']);
+
+        expect(result.stdout).toContain('<?xml');
+        expect(result.stdout).toContain('testsuites');
+    });
+
+    it('should scan single file with sarif format', async () => {
+        const file = path.join(fixturesDir, 'dirty', 'invalid.json');
+        const result = await runCli(['scan', file, '--format', 'sarif']);
+
+        expect(result.stdout).toContain('"version"');
+        expect(result.stdout).toContain('2.1.0');
+    });
 });

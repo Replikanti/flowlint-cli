@@ -43,7 +43,8 @@ function escapeXml(unsafe: string): string {
       case '&': return '&amp;';
       case '\'': return '&apos;';
       case '"': return '&quot;';
-      default: return c;
+      /* c8 ignore next 2 */
+      default: return c; // Unreachable: regex only matches the 5 cases above
     }
   });
 }
