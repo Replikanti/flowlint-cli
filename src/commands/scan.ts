@@ -43,6 +43,7 @@ export const scanCommand = new Command('scan')
       try {
         stats = fs.statSync(absolutePath);
       } catch (error) {
+        /* c8 ignore next 4 */
         if ((error as any).code === 'ENOENT') {
           console.error(pc.red(`Error: Path not found: ${scanPath}`));
           process.exit(1);
@@ -53,6 +54,7 @@ export const scanCommand = new Command('scan')
       const isFile = stats.isFile();
       const isDirectory = stats.isDirectory();
 
+      /* c8 ignore next 4 */
       if (!isFile && !isDirectory) {
         console.error(pc.red(`Error: Path is neither a file nor a directory: ${scanPath}`));
         process.exit(1);

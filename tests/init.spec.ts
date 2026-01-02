@@ -52,12 +52,22 @@ describe('CLI Init Command', () => {
         fs.writeFileSync(configPath, 'dummy: true');
 
         const result = await runCli(['init', '--force'], tempDir);
-        
+
         expect(result.exitCode).toBe(0);
         expect(result.stdout).toContain('Created .flowlint.yml');
-        
+
         const content = fs.readFileSync(configPath, 'utf-8');
         expect(content).not.toBe('dummy: true');
         expect(content).toContain('files:');
+    });
+
+    it('should create config when using --force flag even if file does not exist', async () => {
+        const result = await runCli(['init', '--force'], tempDir);
+
+        expect(result.exitCode).toBe(0);
+        expect(result.stdout).toContain('Created .flowlint.yml');
+
+        const configPath = path.join(tempDir, '.flowlint.yml');
+        expect(fs.existsSync(configPath)).toBe(true);
     });
 });

@@ -101,4 +101,73 @@ describe('CLI Commands Unit Tests', () => {
         // Our Start node is valid, no rules should trigger if single node.
         // Wait, rule R5 requires > 1 node.
     });
+
+    it('should show warning when scanning file not matching configured patterns', async () => {
+        const workflow = {
+            nodes: [{ id: '1', name: 'Start', type: 'n8n-nodes-base.start', parameters: {} }],
+            connections: {}
+        };
+        const workflowPath = path.join(tempDir, 'not-matching.txt');
+        fs.writeFileSync(workflowPath, JSON.stringify(workflow));
+
+        await program.parseAsync(['node', 'cli.js', 'scan', workflowPath]);
+        expect(stdoutSpy).toHaveBeenCalledWith(expect.stringContaining('does not match configured patterns'));
+    });
+
+    it('should support junit output format', async () => {
+        const workflow = {
+            nodes: [{ id: '1', name: 'Start', type: 'n8n-nodes-base.start', parameters: {} }],
+            connections: {}
+        };
+        const workflowPath = path.join(tempDir, 'test.n8n.json');
+        fs.writeFileSync(workflowPath, JSON.stringify(workflow));
+
+        await program.parseAsync(['node', 'cli.js', 'scan', workflowPath, '--format', 'junit']);
+        const junitCall = stdoutSpy.mock.calls.find((call: any[]) => call[0].includes('<?xml'));
+        expect(junitCall).toBeDefined();
+        expect(junitCall[0]).toContain('testsuites');
+    });
+
+    it('should support sarif output format', async () => {
+        const workflow = {
+            nodes: [{ id: '1', name: 'Start', type: 'n8n-nodes-base.start', parameters: {} }],
+            connections: {}
+        };
+        const workflowPath = path.join(tempDir, 'test.n8n.json');
+        fs.writeFileSync(workflowPath, JSON.stringify(workflow));
+
+        await program.parseAsync(['node', 'cli.js', 'scan', workflowPath, '--format', 'sarif']);
+        const sarifCall = stdoutSpy.mock.calls.find((call: any[]) => call[0].includes('"version"'));
+        expect(sarifCall).toBeDefined();
+        const parsed = JSON.parse(sarifCall[0]);
+        expect(parsed.version).toBe('2.1.0');
+    });
+
+    it('should support github-actions output format', async () => {
+        const workflow = {
+            nodes: [
+                { id: '1', name: 'Start', type: 'n8n-nodes-base.start', parameters: {} },
+                { id: '2', name: 'HTTP', type: 'n8n-nodes-base.httpRequest', parameters: {} }
+            ],
+            connections: {
+                'Start': { 'main': [[{ node: 'HTTP', type: 'main', index: 0 }]] }
+            }
+        };
+        const workflowPath = path.join(tempDir, 'test.n8n.json');
+        fs.writeFileSync(workflowPath, JSON.stringify(workflow));
+
+        await program.parseAsync(['node', 'cli.js', 'scan', workflowPath, '--format', 'github-actions']);
+        const output = stdoutSpy.mock.calls.map((call: any[]) => call[0]).join('\n');
+        // Should output github actions format (::error or ::warning)
+        expect(output).toMatch(/::(?:error|warning|notice)/);
+    });
+
+    it('should handle generic errors (non-ValidationError) in stylish mode', async () => {
+        // Create a file that will cause a parsing error (invalid JSON)
+        const workflowPath = path.join(tempDir, 'invalid.n8n.json');
+        fs.writeFileSync(workflowPath, 'not valid json at all');
+
+        await program.parseAsync(['node', 'cli.js', 'scan', workflowPath]);
+        expect(stdoutSpy).toHaveBeenCalledWith(expect.stringMatching(/invalid\.n8n\.json/));
+    });
 });
