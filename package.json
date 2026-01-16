@@ -46,7 +46,7 @@
     "devDependencies": {
         "@octokit/rest": "22.0.1",
         "@replikanti/flowlint-core": "0.10.0",
-        "@types/node": "24.10.7",
+        "@types/node": "24.10.8",
         "@vitest/coverage-v8": "4.0.17",
         "openai": "6.16.0",
         "tsup": "8.5.1",
