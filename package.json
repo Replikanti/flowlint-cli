@@ -48,7 +48,7 @@
         "@replikanti/flowlint-core": "0.11.0",
         "@types/node": "24.10.13",
         "@vitest/coverage-v8": "4.0.18",
-        "openai": "6.21.0",
+        "openai": "6.22.0",
         "tsup": "8.5.1",
         "tsx": "4.21.0",
         "typescript": "5.9.3",
