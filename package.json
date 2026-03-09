@@ -48,7 +48,7 @@
     "@inquirer/prompts": "^7.3.0",
     "@replikanti/flowlint-core": "0.12.1",
     "chalk": "^5.4.1",
-        "@types/node": "24.11.2",
+        "@types/node": "24.12.0",
         "@vitest/coverage-v8": "4.0.18",
         "openai": "6.27.0",
         "tsup": "8.5.1",
