@@ -90,6 +90,7 @@ rules:
 | R12 | Unhandled error path | must |
 | R13 | Webhook acknowledgment | must |
 | R14 | Retry-After compliance | should |
+| R15 | Error handler set in settings | must |
 
 ## License
 
